@@ -157,7 +157,7 @@ _lang\_test&lt;-langdata[id==2,]_
 
 _lang\_model&lt;-rpart(Latitude~., data = lang\_train)_
 
--Prediksi dengan metode decision tree
+  - Prediksi dengan metode decision tree
 
 _pred\_lang&lt;-predict(lang\_model,newdata = lang\_test, type = &quot;vector&quot;)_
 
