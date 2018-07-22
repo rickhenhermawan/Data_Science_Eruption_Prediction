@@ -99,51 +99,51 @@ _MyData &lt;- MyData[c(4,1,2,3)]_
 
 **Proses merapikan data Date dan Erup.VEI:**
 
-   -Mengambil data utama dan dibuat menjadi variabel baru.
+ - Mengambil data utama dan dibuat menjadi variabel baru.
 
 _data &lt;- MyData_
 
-   -Menghapus lantitude dan longitude.
+ - Menghapus lantitude dan longitude.
 
 _data &lt;- subset(data, select=-c(Latitude,Longitude))_
 
-   -Membuat semua data 0 yang ada di Erup.VEI menjadi NA.
+ - Membuat semua data 0 yang ada di Erup.VEI menjadi NA.
 
 _data$Erup.VEI[data$Erup.VEI==0] &lt;- NA_
 
-   -Merubah data Date menjadi ds dan  Erup.VEI menjadi y.
+ - Merubah data Date menjadi ds dan  Erup.VEI menjadi y.
 
 _ds &lt;-data$Date_
 
 _y &lt;- log(data$Erup.VEI)_
 
-   -Membuat dataframe dari ds dan y.
+ - Membuat dataframe dari ds dan y.
 
 _df &lt;- data.frame(ds,y)_
 
 **Prediksi Date dan Erup.VEI:**
 
-   -Membuat prediksi Date selama 155 hari kedepan.
+ - Membuat prediksi Date selama 155 hari kedepan.
 
 _m &lt;- prophet(df)_
 
 _future &lt;- make\_future\_dataframe(m, periods = 155)_
 
-   -Membuat prediksi Erup.VEI.
+  - Membuat prediksi Erup.VEI.
 
 _forcast &lt;- predict(m,future)_
 
 **Proses merapikan dan prediksi data Latitude:**
 
-   -Mengambil data utama dan dibuat menjadi variabel baru.
+  - Mengambil data utama dan dibuat menjadi variabel baru.
 
 _langdata &lt;-MyData_
 
-   -Menghilangkan kolom Date.
+  - Menghilangkan kolom Date.
 
 _langdata$Date &lt;- NULL_
 
-   -Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+  - Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
 
 _set.seed(3)_
 
@@ -153,7 +153,7 @@ _lang\_train&lt;-langdata[id==1,]_
 
 _lang\_test&lt;-langdata[id==2,]_
 
-   -Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
 
 _lang\_model&lt;-rpart(Latitude~., data = lang\_train)_
 
@@ -163,15 +163,15 @@ _pred\_lang&lt;-predict(lang\_model,newdata = lang\_test, type = &quot;vector&qu
 
 **Proses merapikan dan prediksi data Longitude:**
 
-   -Mengambil data utama dan dibuat menjadi variabel baru.
+  - Mengambil data utama dan dibuat menjadi variabel baru.
 
 _longdata &lt;-MyData_
 
-   -Menghilangkan kolom Date.
+  - Menghilangkan kolom Date.
 
 longdata$Date &lt;- NULL
 
-   -Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+  - Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
 
 _set.seed(3)_
 
@@ -181,11 +181,11 @@ _long\_train&lt;-longdata[id==1,]_
 
 _long\_test&lt;-longdata[id==2,]_
 
-   -Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
 
 _long\_model&lt;-rpart(Longitude~., data = long\_train)_
 
-   -Prediksi dengan metode decision tree
+  - Prediksi dengan metode decision tree
 
 _pred\_long&lt;-predict(long\_model,newdata = long\_test, type = &quot;vector&quot;)_
 
