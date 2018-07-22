@@ -69,31 +69,31 @@ Pemodelan dilakukan dengan cara merapikan data hasil dari web scraping dengan me
 
 **Proses merapikan data utama:**
 
-   -Membuat semua data menjadi NA.
+- Membuat semua data menjadi NA.
 
 _na.strings=c(&quot;&quot;, &quot;NA&quot;)_
 
 _MyData[MyData==&quot;&quot;] &lt;- NA_
 
-   -Menghapus kolom data yang tidak diperlukan.
+ - Menghapus kolom data yang tidak diperlukan.
 
 (Data tersisa: Year, Mo, Dy, Latitude, Longitude, Erup.VEI)
 
 _MyData &lt;- subset(MyData, select=-c(Tsu,EQ,Addl.Vol.Info,Name,Location,Country,Elevation,Type,Erupt.Agent,Death.Num,Death.De,Injured.Num,Injured.De,Damage..Mill,Damage.De,Houses.Num,Houses.De,Photos))_
 
-   -Menghapus semua data yang memiliki data NA, dikarenakan ada data erupsi yang tidak memiliki bulan dan hari, sehingga akan lebih baik kalau data tersebut dihapus.
+ - Menghapus semua data yang memiliki data NA, dikarenakan ada data erupsi yang tidak memiliki bulan dan hari, sehingga akan lebih baik kalau data tersebut dihapus.
 
 _MyData&lt;-na.omit(MyData)_
 
-   -Membuat type data Date dan menggabungkannnya dari data Year, Mo, Dy.
+ - Membuat type data Date dan menggabungkannnya dari data Year, Mo, Dy.
 
 _MyData$Date &lt;- as.Date(with(MyData, paste(MyData$Year, MyData$Mo, MyData$Dy, sep=&quot;-&quot;), &quot;%Y-%m-%d&quot;))_
 
-   -Menghapus data Year, Mo, Dy.
+ - Menghapus data Year, Mo, Dy.
 
 _MyData &lt;- subset(MyData, select=-c(Year,Mo,Dy))_
 
-   -Merubah data date menjadi kolom pertama.
+ - Merubah data date menjadi kolom pertama.
 
 _MyData &lt;- MyData[c(4,1,2,3)]_
 
