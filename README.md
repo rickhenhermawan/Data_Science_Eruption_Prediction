@@ -35,8 +35,7 @@ Pada repositori ini berisi aplikasi shiny yang dibuat menggunakan bahasa pemrogr
 - Jalankan app Shiny dari app.R
 
 ## Cara Kerja
-![Flowchart cara kerja]
-(https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/Blank%20Diagram.png)
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/Blank%20Diagram.png"/></p>
 
 
 
@@ -68,81 +67,81 @@ Pemodelan dilakukan dengan cara merapikan data hasil dari web scraping dengan me
 
 **Proses merapikan data utama:**
 
--Membuat semua data menjadi NA.
+    -Membuat semua data menjadi NA.
 
 _na.strings=c(&quot;&quot;, &quot;NA&quot;)_
 
 _MyData[MyData==&quot;&quot;] &lt;- NA_
 
--Menghapus kolom data yang tidak diperlukan.
+    -Menghapus kolom data yang tidak diperlukan.
 
 (Data tersisa: Year, Mo, Dy, Latitude, Longitude, Erup.VEI)
 
 _MyData &lt;- subset(MyData, select=-c(Tsu,EQ,Addl.Vol.Info,Name,Location,Country,Elevation,Type,Erupt.Agent,Death.Num,Death.De,Injured.Num,Injured.De,Damage..Mill,Damage.De,Houses.Num,Houses.De,Photos))_
 
--Menghapus semua data yang memiliki data NA, dikarenakan ada data erupsi yang tidak memiliki bulan dan hari, sehingga akan lebih baik kalau data tersebut dihapus.
+    -Menghapus semua data yang memiliki data NA, dikarenakan ada data erupsi yang tidak memiliki bulan dan hari, sehingga akan lebih baik kalau data tersebut dihapus.
 
 _MyData&lt;-na.omit(MyData)_
 
--Membuat type data Date dan menggabungkannnya dari data Year, Mo, Dy.
+    -Membuat type data Date dan menggabungkannnya dari data Year, Mo, Dy.
 
 _MyData$Date &lt;- as.Date(with(MyData, paste(MyData$Year, MyData$Mo, MyData$Dy, sep=&quot;-&quot;), &quot;%Y-%m-%d&quot;))_
 
--Menghapus data Year, Mo, Dy.
+    -Menghapus data Year, Mo, Dy.
 
 _MyData &lt;- subset(MyData, select=-c(Year,Mo,Dy))_
 
--Merubah data date menjadi kolom pertama.
+    -Merubah data date menjadi kolom pertama.
 
 _MyData &lt;- MyData[c(4,1,2,3)]_
 
 **Proses merapikan data Date dan Erup.VEI:**
 
--Mengambil data utama dan dibuat menjadi variabel baru.
+    -Mengambil data utama dan dibuat menjadi variabel baru.
 
 _data &lt;- MyData_
 
--Menghapus lantitude dan longitude.
+    -Menghapus lantitude dan longitude.
 
 _data &lt;- subset(data, select=-c(Latitude,Longitude))_
 
--Membuat semua data 0 yang ada di Erup.VEI menjadi NA.
+    -Membuat semua data 0 yang ada di Erup.VEI menjadi NA.
 
 _data$Erup.VEI[data$Erup.VEI==0] &lt;- NA_
 
--Merubah data Date menjadi ds dan  Erup.VEI menjadi y.
+    -Merubah data Date menjadi ds dan  Erup.VEI menjadi y.
 
 _ds &lt;-data$Date_
 
 _y &lt;- log(data$Erup.VEI)_
 
--Membuat dataframe dari ds dan y.
+    -Membuat dataframe dari ds dan y.
 
 _df &lt;- data.frame(ds,y)_
 
 **Prediksi Date dan Erup.VEI:**
 
--Membuat prediksi Date selama 155 hari kedepan.
+    -Membuat prediksi Date selama 155 hari kedepan.
 
 _m &lt;- prophet(df)_
 
 _future &lt;- make\_future\_dataframe(m, periods = 155)_
 
--Membuat prediksi Erup.VEI.
+    -Membuat prediksi Erup.VEI.
 
 _forcast &lt;- predict(m,future)_
 
 **Proses merapikan dan prediksi data Latitude:**
 
--Mengambil data utama dan dibuat menjadi variabel baru.
+    -Mengambil data utama dan dibuat menjadi variabel baru.
 
 _langdata &lt;-MyData_
 
--Menghilangkan kolom Date.
+    -Menghilangkan kolom Date.
 
 _langdata$Date &lt;- NULL_
 
--Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+    -Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
 
 _set.seed(3)_
 
@@ -152,7 +151,7 @@ _lang\_train&lt;-langdata[id==1,]_
 
 _lang\_test&lt;-langdata[id==2,]_
 
--Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+    -Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
 
 _lang\_model&lt;-rpart(Latitude~., data = lang\_train)_
 
@@ -162,15 +161,15 @@ _pred\_lang&lt;-predict(lang\_model,newdata = lang\_test, type = &quot;vector&qu
 
 **Proses merapikan dan prediksi data Longitude:**
 
--Mengambil data utama dan dibuat menjadi variabel baru.
+    -Mengambil data utama dan dibuat menjadi variabel baru.
 
 _longdata &lt;-MyData_
 
--Menghilangkan kolom Date.
+    -Menghilangkan kolom Date.
 
 longdata$Date &lt;- NULL
 
--Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+    -Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
 
 _set.seed(3)_
 
@@ -180,11 +179,11 @@ _long\_train&lt;-longdata[id==1,]_
 
 _long\_test&lt;-longdata[id==2,]_
 
--Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+    -Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
 
 _long\_model&lt;-rpart(Longitude~., data = long\_train)_
 
--Prediksi dengan metode decision tree
+    -Prediksi dengan metode decision tree
 
 _pred\_long&lt;-predict(long\_model,newdata = long\_test, type = &quot;vector&quot;)_
 
