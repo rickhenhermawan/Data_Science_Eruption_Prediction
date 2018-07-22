@@ -153,11 +153,11 @@ _lang\_train&lt;-langdata[id==1,]_
 
 _lang\_test&lt;-langdata[id==2,]_
 
-  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree.
 
 _lang\_model&lt;-rpart(Latitude~., data = lang\_train)_
 
-  - Prediksi dengan metode decision tree
+  - Prediksi dengan metode decision tree.
 
 _pred\_lang&lt;-predict(lang\_model,newdata = lang\_test, type = &quot;vector&quot;)_
 
@@ -181,11 +181,11 @@ _long\_train&lt;-longdata[id==1,]_
 
 _long\_test&lt;-longdata[id==2,]_
 
-  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree.
 
 _long\_model&lt;-rpart(Longitude~., data = long\_train)_
 
-  - Prediksi dengan metode decision tree
+  - Prediksi dengan metode decision tree.
 
 _pred\_long&lt;-predict(long\_model,newdata = long\_test, type = &quot;vector&quot;)_
 
@@ -252,16 +252,16 @@ Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 - _Eruption VEI Component Conclusion_  Grafik ini merupakan penggabungan dan  menjelaskan tentang _Trend_ Tahunan dari _Volcanic Explosivity Index_.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20Component%20Conclusion.jpg"/></p>
 
-- _PlotOutput Latitude before Prediction_.Grafik ini memberitahukan _latitude_ dan _Eruption Volcanic Explosivity Index_ pada tahun sebelum 2018
+- _PlotOutput Latitude before Prediction_.Grafik ini memberitahukan _latitude_ dan _Eruption Volcanic Explosivity Index_ pada tahun sebelum 2018.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Latitude%20before%20Predict.jpg"/></p>
 
-- _PlotOutput Latitude after Prediction_. Grafik ini menggunakan data _Latitude_ sebelumnya untuk memprediksi berapa banyak _Plot_ yang akan ada beserta perkiraan _Latitude_-nya untuk waktu mendatang 
+- _PlotOutput Latitude after Prediction_. Grafik ini menggunakan data _Latitude_ sebelumnya untuk memprediksi berapa banyak _Plot_ yang akan ada beserta perkiraan _Latitude_-nya untuk waktu mendatang. 
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Latitude%20after%20Predict.jpg"/></p>
 
 - _PlotOutput Longitude before Prediction_. Grafik ini memberitahukan _longitude_ dan _Eruption Volcanic Explosivity_ Index dari tahun 0 hingga tahun 2018.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Longitude%20before%20Predict.jpg"/></p>
 
-- _PlotOutput Longitude after Prediction_. Grafik ini menggunakan data _Longitude_ sebelumnya untuk memprediksi berapa banyak _Plot_ yang akan ada beserta perkiraan _Longitude_-nya untuk waktu mendatang 
+- _PlotOutput Longitude after Prediction_. Grafik ini menggunakan data _Longitude_ sebelumnya untuk memprediksi berapa banyak _Plot_ yang akan ada beserta perkiraan _Longitude_-nya untuk waktu mendatang. 
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Longitude%20after%20Predict.jpg"/></p>
 
 ## Saran Pengembangan
