@@ -53,7 +53,7 @@ NOAA tidak menyediakan API untuk mengambil data erupsi gempa bumi yang ada di se
 
 **Tahap yang dilakukan adalah:**
 
--Membuka website Volcano Event dari NOAA, kemudian membuka source page HTML dari website tersebut
+-Membuka website Volcano Event dari NOAA, kemudian membuka source page HTML dari website tersebut.
 
 -Mencari tabel yang biasa dimulai dengan &lt;table&gt; dan diakhiri dengan &lt;/table&gt;, perlu dilihat juga dalam tabel tersebut terdapat 3 tabel, jadi harus dilihat terlebih dahulu dimana yang didalamnya terdapat tabel data erupsi.
 
