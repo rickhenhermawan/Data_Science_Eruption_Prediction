@@ -12,13 +12,13 @@ Pada repositori ini berisi aplikasi shiny yang dibuat menggunakan bahasa pemrogr
 
 ## Dependensi
 
-- R versi 3.5
+- [R versi 3.5](https://cran.r-project.org/bin/windows/base/)
 
-- Google Chrome / Browser Lainnya
+- [Google Chrome](https://www.google.com/intl/id_ALL/chrome/) / Browser Lainnya
 
-- Excel
+- [Excel](https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit)
 
-- Zamzar-Free Online File Conversion
+- [Zamzar-Free Online File Conversion](https://www.zamzar.com/)
 
 ## Instalasi
 
@@ -61,7 +61,7 @@ NOAA tidak menyediakan API untuk mengambil data erupsi gempa bumi yang ada di se
 
 -Hasil CSV akan dikirimkan melalui email, setelah itu data.csv tersebut dirapikan kembali menggunakan excel, dikarenakan data yang ada masih berantakan dan memiliki parent table yang tidak sesuai.
 
--Data yang berformat .csv tersebut telah siap untuk diolah.
+-Data yang berformat [.csv](https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/VolcanoData.csv) tersebut telah siap untuk diolah.
 
 ## Pemodelan
 
@@ -270,3 +270,6 @@ Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 2. Menambahkan fitur untuk dapat mengubah jarak jangka waktu yang lebih lama dari tahun 2010 sehingga dapat lebih jelas terlihat garis regresi prediksinya.
 3. Menambahkan prediksi untuk lokasi pasti terjadinya erupsi di masa mendatang.
 4. Menggunakan prediksi untuk menambahkan data _Eruption Volcanic Explosivity_ yang belum tertera dalam National Centers for Environmental Information.
+
+## Google Docs
+https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit
