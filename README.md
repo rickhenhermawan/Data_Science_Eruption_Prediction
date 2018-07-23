@@ -2,13 +2,6 @@
 
 Pada repositori ini berisi aplikasi shiny yang dibuat menggunakan bahasa pemrograman R untuk menunjukkan data erupsi yang sudah terjadi dan prediksi erupsi yang ada pada tahun 2018. Kami mengambil sumber data erupsi yang sudah ada dan telah terjadi sebelumnya berdasarkan data yang tersedia di National Centers for Environmental Information  [NOAA](https://www.ngdc.noaa.gov/nndc/struts/results?ge_23=&le_23=&type_15=Like&query_15=&op_30=eq&v_30=&type_16=Like&query_16=&op_29=eq&v_29=&type_31=EXACT&query_31=None+Selected&le_17=&ge_18=&le_18=&ge_17=&op_20=eq&v_20=&ge_7=&le_7=&bt_24=&st_24=&ge_25=&le_25=&bt_26=&st_26=&ge_27=&le_27=&type_13=Like&query_13=&type_12=Exact&query_12=&type_11=Exact&query_11=&display_look=50&t=102557&s=50). 
 
-**Nama Anggota Kelompok**
-
-- Kevin Jonathan / 00000013436
-
-- Leonardo Bunjamin / 00000014225
-
-- Rickhen Hermawan / 00000012311
 
 ## Dependensi
 
@@ -270,6 +263,17 @@ Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 2. Menambahkan fitur untuk dapat mengubah jarak jangka waktu yang lebih lama dari tahun 2010 sehingga dapat lebih jelas terlihat garis regresi prediksinya.
 3. Menambahkan prediksi untuk lokasi pasti terjadinya erupsi di masa mendatang.
 4. Menggunakan prediksi untuk menambahkan data _Eruption Volcanic Explosivity_ yang belum tertera dalam National Centers for Environmental Information.
+
+## Disklaim
+Data NOAA hanya digunakan untuk kepentingan akademis semata.
+
+Aplikasi Shiny ini dibuat oleh:
+1. Kevin Jonathan / 00000013436
+2. Leonardo Bunjamin / 00000014225
+3. Rickhen Hermawan / 00000012311
+
+untuk memenuhi tugas mata kuliah Frontier Technology Jurusan Teknik informatika Universitas Pelita Harapan semester akselerasi 2017/2018
+
 
 ## Google Docs
 https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit
