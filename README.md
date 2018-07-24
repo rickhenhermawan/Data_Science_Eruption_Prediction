@@ -164,7 +164,7 @@ _pred\_model&lt;-rpart(pred\_vei~.,data = pred\_vei)_
 _pred\_model$frame$yval&lt;-round(pred\_model$frame$yval)_
 
 
-'Notes:'
+ *Notes:
 
 -ds: berisi tanggal prediksi yang harus dibuat.
 
