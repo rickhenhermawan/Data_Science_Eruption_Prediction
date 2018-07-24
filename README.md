@@ -2,13 +2,6 @@
 
 Pada repositori ini berisi aplikasi shiny yang dibuat menggunakan bahasa pemrograman R untuk menunjukkan data erupsi yang sudah terjadi dan prediksi erupsi yang ada pada tahun 2018. Kami mengambil sumber data erupsi yang sudah ada dan telah terjadi sebelumnya berdasarkan data yang tersedia di National Centers for Environmental Information  [NOAA](https://www.ngdc.noaa.gov/nndc/struts/results?ge_23=&le_23=&type_15=Like&query_15=&op_30=eq&v_30=&type_16=Like&query_16=&op_29=eq&v_29=&type_31=EXACT&query_31=None+Selected&le_17=&ge_18=&le_18=&ge_17=&op_20=eq&v_20=&ge_7=&le_7=&bt_24=&st_24=&ge_25=&le_25=&bt_26=&st_26=&ge_27=&le_27=&type_13=Like&query_13=&type_12=Exact&query_12=&type_11=Exact&query_11=&display_look=50&t=102557&s=50). 
 
-**Nama Anggota Kelompok**
-
-- Kevin Jonathan / 00000013436
-
-- Leonardo Bunjamin / 00000014225
-
-- Rickhen Hermawan / 00000012311
 
 ## Dependensi
 
@@ -121,6 +114,63 @@ _y &lt;- log(data$Erup.VEI)_
 
 _df &lt;- data.frame(ds,y)_
 
+-Mengambil data utama dan dibuat menjadi variabel baru.
+
+_veidata &lt;- MyData_
+
+-Menghilangkan kolom Date.
+
+_veidata &lt;- subset(veidata, select=-c(Date))_
+
+-Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+
+_set.seed(3)_
+
+_id&lt;-sample(2,nrow(veidata),prob = c(0.7,0.3),replace = TRUE)_
+
+_vei\_train&lt;-veidata[id==1,]_
+
+_vei\_test&lt;-veidata[id==2,]_
+
+-Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+
+_vei\_model&lt;-rpart(Erup.VEI~., data = vei\_train)_
+
+_vei\_model$frame$yval&lt;-round(vei\_model$frame$yval)_
+
+-Prediksi dengan metode decision tree
+
+_pred\_vei&lt;-predict(vei\_model,newdata = vei\_test, type = &quot;vector&quot;)_
+
+_pred\_vei&lt;-round(pred\_vei)_
+
+-Memasukkan kembali latitude dan langitude ke dalam hasil prediksi Erup.VEI
+
+_pred\_vei&lt;-as.data.frame(pred\_vei)_
+
+_pred\_vei$Latitude&lt;-vei\_test$Latitude_
+
+_pred\_vei$Longitude&lt;-vei\_test$Longitude_
+
+-Merubah posisi kolom pred\_vei menjadi kolom terakhir
+
+_pred\_vei&lt;-pred\_vei[c(2,3,1)]_
+
+-Proses pembentukan decision tree untuk prediksi vei
+
+_pred\_model&lt;-rpart(pred\_vei~.,data = pred\_vei)_
+
+_pred\_model$frame$yval&lt;-round(pred\_model$frame$yval)_
+
+
+**Notes:**
+
+-ds: berisi tanggal prediksi yang harus dibuat.
+
+-y: berisi ramalan yang dibuat.
+
+-df: dataframe.
+
 **Prediksi Date dan Erup.VEI:**
 
  - Membuat prediksi Date selama 155 hari kedepan.
@@ -133,63 +183,64 @@ _future &lt;- make\_future\_dataframe(m, periods = 155)_
 
 _forcast &lt;- predict(m,future)_
 
-**Proses merapikan dan prediksi data Latitude:**
+**Proses merapikan dan prediksi data Erup.VEI berdasarkan Latitude dan Longitude:**
+ - Mengambil data utama dan dibuat menjadi variabel baru.
 
-  - Mengambil data utama dan dibuat menjadi variabel baru.
+_veidata &lt;- MyData_
 
-_langdata &lt;-MyData_
+ - Menghilangkan kolom Date.
 
-  - Menghilangkan kolom Date.
+_veidata &lt;- subset(veidata, select=-c(Date))_
 
-_langdata$Date &lt;- NULL_
-
-  - Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
-
-_set.seed(3)_
-
-_id&lt;-sample(2,nrow(langdata),prob = c(0.7,0.3),replace = TRUE)_
-
-_lang\_train&lt;-langdata[id==1,]_
-
-_lang\_test&lt;-langdata[id==2,]_
-
-  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree.
-
-_lang\_model&lt;-rpart(Latitude~., data = lang\_train)_
-
-  - Prediksi dengan metode decision tree.
-
-_pred\_lang&lt;-predict(lang\_model,newdata = lang\_test, type = &quot;vector&quot;)_
-
-**Proses merapikan dan prediksi data Longitude:**
-
-  - Mengambil data utama dan dibuat menjadi variabel baru.
-
-_longdata &lt;-MyData_
-
-  - Menghilangkan kolom Date.
-
-longdata$Date &lt;- NULL
-
-  - Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+ - Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
 
 _set.seed(3)_
 
-_id&lt;-sample(2,nrow(longdata),prob = c(0.7,0.3),replace = TRUE)_
+_id&lt;-sample(2,nrow(veidata),prob = c(0.7,0.3),replace = TRUE)_
 
-_long\_train&lt;-longdata[id==1,]_
+_vei\_train&lt;-veidata[id==1,]_
 
-_long\_test&lt;-longdata[id==2,]_
+_vei\_test&lt;-veidata[id==2,]_
 
-  - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree.
+ - Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
 
-_long\_model&lt;-rpart(Longitude~., data = long\_train)_
+_vei\_model&lt;-rpart(Erup.VEI~., data = vei\_train)_
 
-  - Prediksi dengan metode decision tree.
+_vei\_model$frame$yval&lt;-round(vei\_model$frame$yval)_
 
-_pred\_long&lt;-predict(long\_model,newdata = long\_test, type = &quot;vector&quot;)_
+ - Prediksi dengan metode decision tree
 
+_pred\_vei&lt;-predict(vei\_model,newdata = vei\_test, type = &quot;vector&quot;)_
+
+_pred\_vei&lt;-round(pred\_vei)_
+
+ - Memasukkan kembali latitude dan langitude ke dalam hasil prediksi Erup.VEI
+
+_pred\_vei&lt;-as.data.frame(pred\_vei)_
+
+_pred\_vei$Latitude&lt;-vei\_test$Latitude_
+
+_pred\_vei$Longitude&lt;-vei\_test$Longitude_
+
+ - Merubah posisi kolom pred\_vei menjadi kolom terakhir
+
+_pred\_vei&lt;-pred\_vei[c(2,3,1)]_
+
+ - Proses pembentukan decision tree untuk prediksi Erup.VEI
+
+_pred\_model&lt;-rpart(pred\_vei~.,data = pred\_vei)_
+
+_pred\_model$frame$yval&lt;-round(pred\_model$frame$yval)_
+  
+**Decision Tree Erup.VEI before Predict**
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20before%20Predict.jpg"/></p>
+
+**Decision Tree Erup.VEI after Predict**
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20after%20Predict.jpg"/></p>
+
+  
 Setelah semua pemodelan ini selesai, maka tahap selanjutnya adalah memasukkannya ke dalam bentuk website, yaitu menggunakakan library shiny atau library shinyAce.
+
 
 **Pengertian Prediksi dengan Prophet**
 
@@ -243,26 +294,21 @@ Untuk memvisualisasi data dengan baik, aplikasi kami membutuhkan empat masukan t
 
 Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 
-- _Eruption VEI before Prediction._ Grafik ini menjelaskan tentang berapa banyak erupsi beserta nilai _Volcanic Explosivity Index_ dalam kurun waktu 2010 hingga tahun 2018.
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20before%20Predict.jpg"/></p>
+- _Eruption VEI before Predict using Prophet_. Grafik ini menjelaskan tentang berapa banyak erupsi beserta nilai _Volcanic Explosivity Index_ dalam kurun waktu 2010 hingga tahun 2018.
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20before%20Predict%20using%20Prophet.jpg"/></p>
 
-- _Eruption VEI after Prediction_. Grafik ini menjelaskan tentang prediksi berapa besar _Frequency_ pada tahun-tahun berikutnya.
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20after%20Predict.jpg"/></p>
+- _Eruption VEI after Predict using Prophet_. Grafik ini menjelaskan tentang prediksi berapa besar _Frequency_ pada tahun-tahun berikutnya.
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20after%20Predict%20using%20Prophet.jpg"/></p>
 
-- _Eruption VEI Component Conclusion_  Grafik ini merupakan penggabungan dan  menjelaskan tentang _Trend_ Tahunan dari _Volcanic Explosivity Index_.
+- _Eruption VEI Component Conclusion_.  Grafik ini merupakan penggabungan dan  menjelaskan tentang _Trend_ Tahunan dari _Volcanic Explosivity Index_.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20Component%20Conclusion.jpg"/></p>
 
-- _PlotOutput Latitude before Prediction_.Grafik ini memberitahukan _latitude_ dan _Eruption Volcanic Explosivity Index_ pada tahun sebelum 2018.
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Latitude%20before%20Predict.jpg"/></p>
+- _Erup VEI before Predict using DT_. Grafik ini menunjukkan bahwa titik plot dari latitude dan longitude berdasarkan nilai Erup.VEI yang ada sebelum dilakukan prediksi dan nilai dari Erup.VEI dibedakan menjadi beberapa warna yang berbeda sesuai dengan levelnya masing-masing.
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20before%20Predict%20using%20DT.jpg"/></p>
 
-- _PlotOutput Latitude after Prediction_. Grafik ini menggunakan data _Latitude_ sebelumnya untuk memprediksi berapa banyak _Plot_ yang akan ada beserta perkiraan _Latitude_-nya untuk waktu mendatang. 
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Latitude%20after%20Predict.jpg"/></p>
+- _Erup VEI after Predict using DT_. Grafik ini merupakan pemodelan hasil dari prediksi Erup.VEI  yang dapat dilihat nilai dari Erup.VEI dibedakan menjadi beberapa warna dan titik plot dari latitude dan longitude dibagi berdasarkan nilai dari Erup.VEI yang ada.
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20after%20Predict%20using%20DT.jpg"/></p>
 
-- _PlotOutput Longitude before Prediction_. Grafik ini memberitahukan _longitude_ dan _Eruption Volcanic Explosivity_ Index dari tahun 0 hingga tahun 2018.
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Longitude%20before%20Predict.jpg"/></p>
-
-- _PlotOutput Longitude after Prediction_. Grafik ini menggunakan data _Longitude_ sebelumnya untuk memprediksi berapa banyak _Plot_ yang akan ada beserta perkiraan _Longitude_-nya untuk waktu mendatang. 
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/PlotOutput%20Longitude%20after%20Predict.jpg"/></p>
 
 ## Saran Pengembangan
 
@@ -273,3 +319,15 @@ Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 
 ## Google Docs
 https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit
+
+## Disklaim
+
+Data yang berasal dari NOAA hanya digunakan untuk kepentingan akademis semata.
+
+Aplikasi Shiny ini dibuat oleh:
+- Kevin Jonathan / 00000013436
+- Leonardo Bunjamin / 00000014225
+- Rickhen Hermawan / 00000012311
+
+Bertujuan untuk memenuhi tugas mata kuliah Frontier Technology Jurusan Teknik informatika Universitas Pelita Harapan semester akselerasi 2017/2018
+

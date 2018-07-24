@@ -5,9 +5,10 @@ library(shinyAce)
 library(ggplot2)
 library(prophet)
 library(rpart)
+library(plotly)
 
 #Main Data Filter
-MyData <- read.csv(file="D:/Documents/Kuliah/INF/Semester 9/Frontier Technology/VolcanoData.csv", header=TRUE, sep=",")
+MyData <- read.csv(file="C:/Users/Rickhen Hermawan/Desktop/VolcanoData.csv", header=TRUE, sep=",")
 na.strings=c("", "NA")
 MyData$Erup.VEI[MyData$Erup.VEI=="NA"] <- 0
 MyData[MyData==""] <- NA
@@ -34,42 +35,30 @@ f <- future
 f$ds <- as.Date(f$ds)
 temp <- f[18:172, ]
 
-#Latitude Prediction
-langdata <- MyData
-langdata <- subset(langdata, select=-c(Date))
+#Erup.VEI Prediction
+veidata <- MyData
+veidata <- subset(veidata, select=-c(Date))
 set.seed(3)
-id<-sample(2,nrow(langdata),prob = c(0.7,0.3),replace = TRUE)
-lang_train<-langdata[id==1,]
-lang_test<-langdata[id==2,]
+id<-sample(2,nrow(veidata),prob = c(0.7,0.3),replace = TRUE)
+vei_train<-veidata[id==1,]
+vei_test<-veidata[id==2,]
 # View(langdata)
 # colnames(langdata)
-lang_model<-rpart(Latitude~., data = lang_train)
+vei_model<-rpart(Erup.VEI~., data = vei_train)
+vei_model$frame$yval<-round(vei_model$frame$yval)
 # lang_model
-pred_lang<-predict(lang_model,newdata = lang_test, type = "vector")
+pred_vei<-predict(vei_model,newdata = vei_test, type = "vector")
+pred_vei<-round(pred_vei)
+pred_vei<-as.data.frame(pred_vei)
+pred_vei$Latitude<-vei_test$Latitude
+pred_vei$Longitude<-vei_test$Longitude
+pred_vei<-pred_vei[c(2,3,1)]
+pred_model<-rpart(pred_vei~.,data = pred_vei)
+pred_model$frame$yval<-round(pred_model$frame$yval)
 # pred_lang
 # table(pred_lang, lang_test$Latitude)
 # plot(pred_lang)
 # View(pred_lang)
-
-
-#Longitude Prediction
-longdata <- MyData
-longdata <- subset(longdata, select=-c(Date))
-set.seed(3)
-id<-sample(2,nrow(longdata),prob = c(0.7,0.3),replace = TRUE)
-long_train<-longdata[id==1,]
-long_test<-longdata[id==2,]
-
-colnames(longdata)
-long_model<-rpart(Longitude~., data = long_train)
-# long_model
-# plot(long_model,margin = 0.1)
-# text(long_model,use.n = TRUE,pretty = TRUE,cex=0.8)
-pred_long<-predict(long_model,newdata = long_test, type = "vector")
-# pred_long
-# table(pred_long, long_test$Longitude)
-# plot(pred_long)
-# View(pred_long)
 
 
 ################################################################################################################
@@ -82,56 +71,57 @@ ui <- fluidPage(
    titlePanel("Eruption Prediction"),
    conditionalPanel("input.tbPanel=='a'",
                     sidebarPanel(
-                      h4('Erup.VEI before Prediction'))),
+                      h4('Erup.VEI before Prediction using Prophet'))),
    conditionalPanel("input.tbPanel=='b'",
                     sidebarPanel(
-                      h4('Erup.VEI after Prediction'))),
+                      h4('Erup.VEI after Prediction using Prophet'))),
    conditionalPanel("input.tbPanel=='c'",
                     sidebarPanel(
-                      h4('Erup.VEI Component Conclusion'))),
+                      h4('Erup.VEI Component Conclusion using Prophet'))),
    conditionalPanel("input.tbPanel=='d'",
                     sidebarPanel(
-                      h4('PlotOutput Latitude before Prediction'))),
+                      h4('DT Erup.VEI before Prediction '))),
    conditionalPanel("input.tbPanel=='e'",
                     sidebarPanel(
-                      h4('PlotOutput Latitude after Prediction'))),
+                      h4('DT Erup.VEI after Prediction'))),
    conditionalPanel("input.tbPanel=='f'",
                     sidebarPanel(
-                      h4('PlotOutput Longitude before Prediction'))),
+                      h4('Erup.VEI before Prediction using DT'))),
    conditionalPanel("input.tbPanel=='g'",
                     sidebarPanel(
-                      h4('PlotOutput Longitude after Prediction'))),
+                      h4('Erup.VEI after Prediction using DT'))),
                     
    mainPanel(
      tabsetPanel(id = 'tbPanel',
-     tabPanel('Erup.VEI before Prediction',value = 'a',
+     tabPanel('Erup.VEI before Prediction using Prophet',value = 'a',
               plotOutput('plot1'),
               tableOutput('table1')
               ),
-     tabPanel('Erup.VEI after Prediction',value = 'b',
+     tabPanel('Erup.VEI after Prediction using Prophet',value = 'b',
               plotOutput('plot2'),
               tableOutput('table2')
               ),
-     tabPanel('Erup.VEI Component Conclutsion',value = 'c',
+     tabPanel('Erup.VEI Component Conclusion',value = 'c',
               plotOutput('plot3'),
               tableOutput('table3')
               ),
-     tabPanel('PlotOutput Latitude before Prediction',value = 'd',
+     tabPanel('DT Erup.VEI before Prediction',value = 'd',
               plotOutput('plot4'),
               tableOutput('table4')
               ),
-     tabPanel('PlotOutput Latitude after Prediction',value = 'e',
+     tabPanel('DT Erup.VEI after Prediction',value = 'e',
               plotOutput('plot5'),
               tableOutput('table5')
               ),
-     tabPanel('PlotOutput Longitude before Prediction',value = 'f',
+     tabPanel('Erup.VEI before Prediction using DT',value = 'f',
               plotOutput('plot6'),
               tableOutput('table6')
               ),
-     tabPanel('PlotOutput Longitude after Prediction',value = 'g',
+     tabPanel('Erup.VEI after Prediction using DT',value = 'g',
               plotOutput('plot7'),
               tableOutput('table7')
               )
+        
      )
    )
 )
@@ -174,44 +164,51 @@ server <- function(input, output,session) {
    })
 
    output$plot4 <- renderPlot({
-     g <- plot(langdata$Latitude)
+     plot(vei_model,margin = 0.1)
+     text(vei_model,use.n = TRUE,pretty = TRUE,cex=0.8)
    })
 
    output$table4 <- renderTable({
-     langdata$Latitude <- as.character(langdata$Latitude)
-     langdata$Longitude <- as.character(langdata$Longitude)
-     head(langdata, n=500)
+     veidata$Latitude <- as.character(veidata$Latitude)
+     veidata$Longitude <- as.character(veidata$Longitude)
+     head(veidata, n=500)
    })
 
    output$plot5 <- renderPlot({
-     plot(pred_lang)
+     plot(pred_model, margin=0.1)
+     text(pred_model,use.n = TRUE,pretty = TRUE,cex=0.8)
    })
 
    output$table5 <- renderTable({
-     lang_test$Latitude <- as.character(lang_test$Latitude)
-     lang_test$Longitude <- as.character(lang_test$Longitude)
-     h <- table(pred_lang, lang_test$Latitude)
+     pred_vei$Latitude <- as.character(pred_vei$Latitude)
+     pred_vei$Longitude <- as.character(pred_vei$Longitude)
+     head(pred_vei, n=155)
    })
-
+   
    output$plot6 <- renderPlot({
-     g <- plot(longdata$Longitude)
+     vein<-veidata
+     vein$Erup.VEI<-factor(vein$Erup.VEI)
+     ggplot(vein,aes(Latitude,Longitude,group=Erup.VEI, colour=Erup.VEI))+geom_line()+geom_point()
    })
    
    output$table6 <- renderTable({
-     longdata$Latitude <- as.character(longdata$Latitude)
-     longdata$Longitude <- as.character(longdata$Longitude)
-     head(longdata, n=500)
+     veidata$Latitude <- as.character(veidata$Latitude)
+     veidata$Longitude <- as.character(veidata$Longitude)
+     head(veidata, n=500)
    })
    
    output$plot7 <- renderPlot({
-     plot(pred_long)
+     prev<-pred_vei
+     prev$pred_vei<-factor(prev$pred_vei)
+     ggplot(prev,aes(Latitude,Longitude,group=pred_vei, colour=pred_vei))+geom_line()+geom_point()
    })
    
    output$table7 <- renderTable({
-     long_test$Latitude <- as.character(long_test$Latitude)
-     long_test$Longitude <- as.character(long_test$Longitude)
-     h <- table(pred_long, long_test$Latitude)
+     pred_vei$Latitude <- as.character(pred_vei$Latitude)
+     pred_vei$Longitude <- as.character(pred_vei$Longitude)
+     head(pred_vei, n=155)
    })
+   
 }
 
 # Run the application 
