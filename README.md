@@ -46,7 +46,7 @@ NOAA tidak menyediakan API untuk mengambil data erupsi gempa bumi yang ada di se
 
 **Tahap yang dilakukan adalah:**
 
--Membuka website Volcano Event dari NOAA, kemudian membuka source page HTML dari website tersebut.
+-Membuka website Volcano Event dari NOAA, kemudian membuka [source page HTML](view-source:https://www.ngdc.noaa.gov/nndc/struts/results?ge_23=&le_23=&type_15=Like&query_15=&op_30=eq&v_30=&type_16=Like&query_16=&op_29=eq&v_29=&type_31=EXACT&query_31=None+Selected&le_17=&ge_18=&le_18=&ge_17=&op_20=eq&v_20=&ge_7=&le_7=&bt_24=&st_24=&ge_25=&le_25=&bt_26=&st_26=&ge_27=&le_27=&type_13=Like&query_13=&type_12=Exact&query_12=&type_11=Exact&query_11=&display_look=50&t=102557&s=50) dari website tersebut.
 
 -Mencari tabel yang biasa dimulai dengan &lt;table&gt; dan diakhiri dengan &lt;/table&gt;, perlu dilihat juga dalam tabel tersebut terdapat 3 tabel, jadi harus dilihat terlebih dahulu dimana yang didalamnya terdapat tabel data erupsi.
 
@@ -89,6 +89,7 @@ _MyData &lt;- subset(MyData, select=-c(Year,Mo,Dy))_
  - Merubah data date menjadi kolom pertama.
 
 _MyData &lt;- MyData[c(4,1,2,3)]_
+
 
 **Proses merapikan data Date dan Erup.VEI:**
 
@@ -320,7 +321,8 @@ Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 4. Menggunakan prediksi untuk menambahkan data _Eruption Volcanic Explosivity_ yang belum tertera dalam National Centers for Environmental Information.
 
 ## Google Docs
-https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit
+
+<a href="https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit"><img src="https://www.orrasis.com/img/google/docs.png" width="100" height="100"/></a>
 
 ## Disklaim
 
