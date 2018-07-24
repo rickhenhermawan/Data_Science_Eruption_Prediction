@@ -247,7 +247,7 @@ Untuk memvisualisasi data dengan baik, aplikasi kami membutuhkan empat masukan t
 
 ·         Eruption VEI(_Volcanic Explosivity Index)_
 
-Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
+Informasi ditampilkan di kolom utama, terbagi dalam 5 tab yang terdiri atas :
 
 - _Eruption VEI before Predict using Prophet_. Grafik ini menjelaskan tentang berapa banyak erupsi beserta nilai _Volcanic Explosivity Index_ dalam kurun waktu 2010 hingga tahun 2018.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20before%20Predict%20using%20Prophet.jpg"/></p>
