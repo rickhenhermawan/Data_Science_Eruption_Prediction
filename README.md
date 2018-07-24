@@ -97,7 +97,7 @@ _MyData &lt;- MyData[c(4,1,2,3)]_
 
 _data &lt;- MyData_
 
-- Menghapus lantitude dan longitude.
+- Menghapus latitude dan longitude.
 
 _data &lt;- subset(data, select=-c(Latitude,Longitude))_
 
