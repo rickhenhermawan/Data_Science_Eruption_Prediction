@@ -38,11 +38,11 @@ NOAA tidak menyediakan API untuk mengambil data erupsi gempa bumi yang ada di se
 
 **Bahan-bahan yang digunakan untuk web scraping ini adalah:**
 
-- Google Chrome / Browser Lainnya
+- [Google Chrome](https://www.google.com/intl/id_ALL/chrome/) / Browser Lainnya
 
-- Excel
+- [Excel](https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/edit)
 
-- Zamzar-Free Online File Conversion
+- [Zamzar-Free Online File Conversion](https://www.zamzar.com/)
 
 **Tahap yang dilakukan adalah:**
 
@@ -92,37 +92,37 @@ _MyData &lt;- MyData[c(4,1,2,3)]_
 
 **Proses merapikan data Date dan Erup.VEI:**
 
- - Mengambil data utama dan dibuat menjadi variabel baru.
+- Mengambil data utama dan dibuat menjadi variabel baru.
 
 _data &lt;- MyData_
 
- - Menghapus lantitude dan longitude.
+- Menghapus lantitude dan longitude.
 
 _data &lt;- subset(data, select=-c(Latitude,Longitude))_
 
- - Membuat semua data 0 yang ada di Erup.VEI menjadi NA.
+- Membuat semua data 0 yang ada di Erup.VEI menjadi NA.
 
 _data$Erup.VEI[data$Erup.VEI==0] &lt;- NA_
 
- - Merubah data Date menjadi ds dan  Erup.VEI menjadi y.
+- Merubah data Date menjadi ds dan  Erup.VEI menjadi y.
 
 _ds &lt;-data$Date_
 
 _y &lt;- log(data$Erup.VEI)_
 
- - Membuat dataframe dari ds dan y.
+- Membuat dataframe dari ds dan y.
 
 _df &lt;- data.frame(ds,y)_
 
--Mengambil data utama dan dibuat menjadi variabel baru.
+- Mengambil data utama dan dibuat menjadi variabel baru.
 
 _veidata &lt;- MyData_
 
--Menghilangkan kolom Date.
+- Menghilangkan kolom Date.
 
 _veidata &lt;- subset(veidata, select=-c(Date))_
 
--Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
+- Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
 
 _set.seed(3)_
 
@@ -132,19 +132,19 @@ _vei\_train&lt;-veidata[id==1,]_
 
 _vei\_test&lt;-veidata[id==2,]_
 
--Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
+- Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
 
 _vei\_model&lt;-rpart(Erup.VEI~., data = vei\_train)_
 
 _vei\_model$frame$yval&lt;-round(vei\_model$frame$yval)_
 
--Prediksi dengan metode decision tree
+- Prediksi dengan metode decision tree
 
 _pred\_vei&lt;-predict(vei\_model,newdata = vei\_test, type = &quot;vector&quot;)_
 
 _pred\_vei&lt;-round(pred\_vei)_
 
--Memasukkan kembali latitude dan langitude ke dalam hasil prediksi Erup.VEI
+- Memasukkan kembali latitude dan langitude ke dalam hasil prediksi Erup.VEI
 
 _pred\_vei&lt;-as.data.frame(pred\_vei)_
 
@@ -152,24 +152,25 @@ _pred\_vei$Latitude&lt;-vei\_test$Latitude_
 
 _pred\_vei$Longitude&lt;-vei\_test$Longitude_
 
--Merubah posisi kolom pred\_vei menjadi kolom terakhir
+- Merubah posisi kolom pred\_vei menjadi kolom terakhir
 
 _pred\_vei&lt;-pred\_vei[c(2,3,1)]_
 
--Proses pembentukan decision tree untuk prediksi vei
+- Proses pembentukan decision tree untuk prediksi vei
 
 _pred\_model&lt;-rpart(pred\_vei~.,data = pred\_vei)_
 
 _pred\_model$frame$yval&lt;-round(pred\_model$frame$yval)_
 
 
-**Notes:**
+'Notes:'
 
 -ds: berisi tanggal prediksi yang harus dibuat.
 
 -y: berisi ramalan yang dibuat.
 
 -df: dataframe.
+
 
 **Prediksi Date dan Erup.VEI:**
 
@@ -182,6 +183,7 @@ _future &lt;- make\_future\_dataframe(m, periods = 155)_
   - Membuat prediksi Erup.VEI.
 
 _forcast &lt;- predict(m,future)_
+
 
 **Proses merapikan dan prediksi data Erup.VEI berdasarkan Latitude dan Longitude:**
  - Mengambil data utama dan dibuat menjadi variabel baru.
@@ -325,9 +327,9 @@ https://docs.google.com/document/d/1baA9E5ciLhOmI-0TkWy9WpAOXH8sxLv4-at5e28FrbM/
 Data yang berasal dari NOAA hanya digunakan untuk kepentingan akademis semata.
 
 Aplikasi Shiny ini dibuat oleh:
-- Kevin Jonathan / 00000013436
-- Leonardo Bunjamin / 00000014225
-- Rickhen Hermawan / 00000012311
+- [Kevin Jonathan / 00000013436](https://github.com/KouKejo)
+- [Leonardo Bunjamin / 00000014225](https://github.com/leobunjamin)
+- [Rickhen Hermawan / 00000012311](https://github.com/rickhenhermawan/)
 
-Bertujuan untuk memenuhi tugas mata kuliah Frontier Technology Jurusan Teknik informatika Universitas Pelita Harapan semester akselerasi 2017/2018
+Bertujuan untuk memenuhi tugas mata kuliah Frontier Technology Jurusan Teknik informatika Universitas Pelita Harapan semester akselerasi 2017/2018.
 
