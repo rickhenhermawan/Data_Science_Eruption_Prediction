@@ -115,55 +115,6 @@ _y &lt;- log(data$Erup.VEI)_
 
 _df &lt;- data.frame(ds,y)_
 
-- Mengambil data utama dan dibuat menjadi variabel baru.
-
-_veidata &lt;- MyData_
-
-- Menghilangkan kolom Date.
-
-_veidata &lt;- subset(veidata, select=-c(Date))_
-
-- Membagi menjadi 2 data, yaitu data training sebesar 0.7 dan test sebesar 0.3.
-
-_set.seed(3)_
-
-_id&lt;-sample(2,nrow(veidata),prob = c(0.7,0.3),replace = TRUE)_
-
-_vei\_train&lt;-veidata[id==1,]_
-
-_vei\_test&lt;-veidata[id==2,]_
-
-- Memilih data yang akan dilatih dari data training dan menjadikan bentuk decision tree
-
-_vei\_model&lt;-rpart(Erup.VEI~., data = vei\_train)_
-
-_vei\_model$frame$yval&lt;-round(vei\_model$frame$yval)_
-
-- Prediksi dengan metode decision tree
-
-_pred\_vei&lt;-predict(vei\_model,newdata = vei\_test, type = &quot;vector&quot;)_
-
-_pred\_vei&lt;-round(pred\_vei)_
-
-- Memasukkan kembali latitude dan langitude ke dalam hasil prediksi Erup.VEI
-
-_pred\_vei&lt;-as.data.frame(pred\_vei)_
-
-_pred\_vei$Latitude&lt;-vei\_test$Latitude_
-
-_pred\_vei$Longitude&lt;-vei\_test$Longitude_
-
-- Merubah posisi kolom pred\_vei menjadi kolom terakhir
-
-_pred\_vei&lt;-pred\_vei[c(2,3,1)]_
-
-- Proses pembentukan decision tree untuk prediksi vei
-
-_pred\_model&lt;-rpart(pred\_vei~.,data = pred\_vei)_
-
-_pred\_model$frame$yval&lt;-round(pred\_model$frame$yval)_
-
-
  *Notes:
 
 -ds: berisi tanggal prediksi yang harus dibuat.
