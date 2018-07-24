@@ -284,5 +284,5 @@ Aplikasi Shiny ini dibuat oleh:
 - [Leonardo Bunjamin / 00000014225](https://github.com/leobunjamin)
 - [Rickhen Hermawan / 00000012311](https://github.com/rickhenhermawan/)
 
-Bertujuan untuk memenuhi tugas mata kuliah Frontier Technology Jurusan Teknik informatika Universitas Pelita Harapan semester akselerasi 2017/2018.
+Bertujuan untuk memenuhi tugas mata kuliah Frontier Technology Jurusan Teknik Informatika Universitas Pelita Harapan semester akselerasi 2017/2018.
 
