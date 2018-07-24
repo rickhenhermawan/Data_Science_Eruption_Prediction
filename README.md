@@ -24,8 +24,9 @@ Pada repositori ini berisi aplikasi shiny yang dibuat menggunakan bahasa pemrogr
   - packages(&#39;ggplot2&#39;)
   - packages(&#39;prophet&#39;)
   - packages(&#39;rpart&#39;)
+- Jalankan app Shiny dari [app.R](https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/app.R)
 - Ubah direktori file=&quot;C:/.../VolcanoData.csv&quot; dengan menyesuaikan alamat tempat anda menaruh repositori ini untuk mengambil data erupsi yang telah terjadi
-- Jalankan app Shiny dari app.R
+
 
 ## Cara Kerja
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/Blank%20Diagram.png"/></p>
