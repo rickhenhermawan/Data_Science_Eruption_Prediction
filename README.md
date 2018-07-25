@@ -259,10 +259,10 @@ Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 - _Erup VEI after Predict using DT_. Grafik ini merupakan pemodelan hasil dari prediksi Erup.VEI  yang dapat dilihat nilai dari Erup.VEI dibedakan menjadi beberapa warna dan titik plot dari latitude dan longitude dibagi berdasarkan nilai dari Erup.VEI yang ada.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20after%20Predict%20using%20DT.jpg"/></p>
 
-- _**Decision Tree Erup.VEI before Predict**_
+- _Decision Tree Erup.VEI before Predict_. Gambar ini menunjukkan decision tree Erup.VEI sebelum di prediksi.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20before%20Predict.jpg"/></p>
 
-- _**Decision Tree Erup.VEI after Predict**_
+- _Decision Tree Erup.VEI after Predict_. Gambar ini menunjukkan decision tree Erup.VEI setelah di prediksi.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20after%20Predict.jpg"/></p>
 
 
