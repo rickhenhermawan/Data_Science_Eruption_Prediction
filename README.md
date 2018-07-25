@@ -188,12 +188,6 @@ _pred\_model&lt;-rpart(pred\_vei~.,data = pred\_vei)_
 
 _pred\_model$frame$yval&lt;-round(pred\_model$frame$yval)_
   
-**Decision Tree Erup.VEI before Predict**
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20before%20Predict.jpg"/></p>
-
-**Decision Tree Erup.VEI after Predict**
-<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20after%20Predict.jpg"/></p>
-
   
 Setelah semua pemodelan ini selesai, maka tahap selanjutnya adalah memasukkannya ke dalam bentuk website, yaitu menggunakakan library shiny atau library shinyAce.
 
@@ -248,7 +242,7 @@ Untuk memvisualisasi data dengan baik, aplikasi kami membutuhkan empat masukan t
 
 ·         Eruption VEI(_Volcanic Explosivity Index)_
 
-Informasi ditampilkan di kolom utama, terbagi dalam 5 tab yang terdiri atas :
+Informasi ditampilkan di kolom utama, terbagi dalam 7 tab yang terdiri atas :
 
 - _Eruption VEI before Predict using Prophet_. Grafik ini menjelaskan tentang berapa banyak erupsi beserta nilai _Volcanic Explosivity Index_ dalam kurun waktu 2010 hingga tahun 2018.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20before%20Predict%20using%20Prophet.jpg"/></p>
@@ -264,6 +258,12 @@ Informasi ditampilkan di kolom utama, terbagi dalam 5 tab yang terdiri atas :
 
 - _Erup VEI after Predict using DT_. Grafik ini merupakan pemodelan hasil dari prediksi Erup.VEI  yang dapat dilihat nilai dari Erup.VEI dibedakan menjadi beberapa warna dan titik plot dari latitude dan longitude dibagi berdasarkan nilai dari Erup.VEI yang ada.
 <p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/ErupVEI%20after%20Predict%20using%20DT.jpg"/></p>
+
+**Decision Tree Erup.VEI before Predict**
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20before%20Predict.jpg"/></p>
+
+**Decision Tree Erup.VEI after Predict**
+<p align="center"><img src="https://github.com/rickhenhermawan/Data_Science_Eruption_Prediction/blob/master/Images/DT%20ErupVEI%20after%20Predict.jpg"/></p>
 
 
 ## Saran Pengembangan
